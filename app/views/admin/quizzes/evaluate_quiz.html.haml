@@ -1,0 +1,42 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h1.h1.mb-0.text-gray-800 Evaluate Quiz
+/ DataTales
+.card.shadow.mb-4
+  .card-header.py-2
+    .d-sm-flex.align-items-center.justify-content-between
+      %h6.m-0.font-weight-bold.text-primary Eval
+  .card-body
+    .table-responsive
+      %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+        %thead
+          %tr
+            %th Name
+            %th Submitted on
+            %th Action
+        %tbody
+        - @users.each do |u|
+          %tr
+            %td
+              = u.name
+            - result = Result.where(quiz_id: @quiz.id, user_id: u.id).first
+            %td 
+              = result.created_at if !result.nil?
+            %td 
+              %a.d-none.d-sm-inline-block.btn.btn-sm.btn-primary.shadow-sm{:href => "#{evaluate_question_path(u.id, @quiz.id)}"}
+                %i.fa.fa-pencil.fa-sm
+                Start Evaluattion
+-# %h1 Evaluate Quiz
+
+-# %table
+-#   %tr
+-#     %th Name
+-#     %th Submited on
+-#     %th Action
+-#   - @users.each do |u|
+-#     %tr
+-#       %td= u.name
+-#       - result = Result.where(quiz_id: @quiz.id, user_id: u.id).first
+-#       %td= result.created_at if !result.nil?
+-#       %td= link_to "Start evaluation", evaluate_question_path(u.id, @quiz.id)
+

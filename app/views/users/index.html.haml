@@ -1,0 +1,49 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h1.h1.mb-0.text-gray-800 Users
+  - if current_user.role == "superadmin"
+    %p Click on user name or email to login as the user
+/ DataTales Example
+.card.shadow.mb-4
+  .card-header.py-2
+    .d-sm-flex.align-items-center.justify-content-between
+      %h6.m-0.font-weight-bold.text-primary
+  .card-body
+    .table-responsive
+      %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+        %thead
+          %tr
+            %th Organization name
+            %th Name
+            %th Username / Email
+            %th Role
+            %th Status
+            %th Action
+        %tbody
+        - @users.each do |u|
+          %tr
+            - if u.organization?
+              %td
+                = u.organization.name
+            - else
+              %td
+            %td 
+              = "#{u.name} #{u.last_name}"
+            - if !u.email.nil?
+              - if current_user.role == "superadmin" && current_user!=u
+                %td= link_to u.email, impersonate_user_path(u), method: :post
+              - else
+                %td= u.email
+            - else
+              - if current_user.role == "superadmin" && current_user!=u
+                %td= link_to u.username, impersonate_user_path(u), method: :post
+              - else
+                %td= u.username
+
+            %td= u.role
+            %td 
+              = "#{u.approved? ? 'Approved' : 'Activation is pending'}"
+            %td
+              %a.d-none.d-sm-inline-block.btn.btn-sm.btn-primary.shadow-sm{:href => "#{toggle_status_path(u.id)}"}
+                %i.fa.fa-pencil.fa-sm
+                ="#{u.approved? ? 'Disapprove' : 'Approve'}"

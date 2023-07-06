@@ -1,0 +1,5 @@
+.nested-fields
+  .form-inline
+    = f.input :option_text, label: false, placeholder: "Option Text", input_html: {class: "form-control form-control-sm mr-4", size: 100}
+    = f.input :is_correct, as: :boolean, default: false, label: "Correct", checked_value: true, unchecked_value: false, input_html: {class: "mr-2 mx-1"}
+    = link_to_remove_association "Remove option", f, class: "px-3 ml-3", label: "Remove option"

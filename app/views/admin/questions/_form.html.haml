@@ -1,0 +1,40 @@
+= simple_form_for [:admin, @question] do |qu|
+  .form-inputs 
+    = qu.input :quiz_id, as: :hidden, input_html: {value: "#{@quiz.id.to_s}"}
+    = qu.input :user_id, as: :hidden, input_html: {value: current_user.id.to_s}
+    - if @question.q_number == nil
+      = qu.input :q_number, label: "Question number", input_html: {value:"#{@quiz.questions.count + 1}", readonly: true,class: "form-control form-control-sm"}
+    - else
+      = qu.input :q_number, label: "Question number", readonly: true, input_html: {class: "form-control form-control-sm"}
+    %br
+    = qu.input :question, label: "Question", as: :ckeditor, input_html: { ckeditor: { toolbar: 'mini', title: "Question"} }
+    %br
+    = qu.input :question_type,  label: "Question Type", collection: QUESTION_TYPES, input_html: {class: "form-control form-control-sm"}
+    %br
+    #has_mcq
+      = qu.simple_fields_for :options do |o|
+        = render 'option_fields', f: o
+      .links
+        %i.fa.fa-plus
+        = link_to_add_association "Add Option", qu, :options, input_html: {class: "form-control form-control-sm"}
+    #match
+      %br
+      = qu.input :answer, input_html: {class: "form-control form-control-sm"}
+    #has_no_mcq
+    %br
+    = qu.input :marks, input_html: {class: "form-control form-control-sm"}, required: true
+    %br
+  .form-actions
+    - if @question.new_record?
+      = qu.submit "Save and add another", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm px-3 my-2"
+      = qu.submit "Save", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm px-3 my-2"
+    - else
+      - if @question.q_number < @question.quiz.questions.count
+        = qu.submit "Save and next", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm px-3 my-2"
+      - else
+        = qu.submit "Save", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm px-3 my-2"
+      - if @question.q_number > 1
+        = qu.submit "Save and previous", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm px-3 my-2"
+= button_to "Cancel", admin_quiz_path(@quiz), method: :get, class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm px-3 my-2"
+    
+

@@ -1,0 +1,14 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h1.h1.mb-0.text-gray-800 Thank you! for registering on Swalekhan test
+/ DataTales Example
+.card.shadow.mb-4
+  .card-header.py-2
+    .d-sm-flex.align-items-center.justify-content-between
+      %h6.m-0.font-weight-bold.text-primary
+  .card-body
+    Your Registration has been completed successfully.
+    %br
+    Your organization needs to be approved by Swalekhan test team. We will send you an email once the approval is done.
+    %br
+        = button_to "Click here to login", new_user_session_path, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm px-2 m-2"

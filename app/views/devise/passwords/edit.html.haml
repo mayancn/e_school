@@ -1,0 +1,38 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h3.h3.mb-0.text-gray-800 Change your password
+= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+  = f.error_notification
+  = f.input :reset_password_token, as: :hidden
+  = f.full_error :reset_password_token
+  .form-inputs
+    = f.input :password, label: "New password", required: true, autofocus: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" }
+    = f.input :password_confirmation,label: "Confirm your new password", required: true, input_html: { autocomplete: "new-password" }
+  .form-actions
+    = f.button :submit, "Change my password"
+= render "devise/shared/links"
+
+
+/ Outer Row
+.row.justify-content-center
+  .col-xl-10.col-lg-12.col-md-9
+    .card.o-hidden.border-0.shadow-lg.my-5
+      .card-body.p-0
+        / Nested Row within Card Body
+        .row
+          .col-lg-6.d-none.d-lg-block.bg-password-image
+          .col-lg-6
+            .p-5
+              .text-center
+                %h3.h3.text-gray-900.mb-2 Change your password
+                %p.mb-4 We get it, stuff happens. Just enter your old and new passwords to reset your password!
+              %form.user
+                .form-group
+                  %input#exampleInputEmail.form-control.form-control-user{"aria-describedby" => "password", :placeholder => "Enter password", :type => "password"}/
+                %a.btn.btn-primary.btn-user.btn-block{:href => "/users/sign_in"}
+                  Change Password
+              %hr/
+              .text-center
+                %a.small{:href => "/users/sign_up"} Create an Account!
+              .text-center
+                %a.small{:href => "/users/sign_in"} Already have an account? Login!

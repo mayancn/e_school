@@ -1,0 +1,7 @@
+= simple_form_for [:admin, @group] do |f|
+  .form-inputs
+    = f.input :organization_id, as: :hidden, class: "form-control form-control-sm", input_html: {value: "#{current_user.organization.id.to_s}"}
+    = f.input :group_name, class: "form-control form-control-sm"  
+    = f.input :group_type, collection: GROUP_TYPES, class: "form-control form-control-sm"
+  .form-actions.my-2
+    = f.submit "Submit", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"  

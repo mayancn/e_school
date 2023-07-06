@@ -1,0 +1,8 @@
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h1.h3.mb-0.text-gray-800  Thank You
+%p Quiz submited successfuly.
+
+- if current_user.role == "admin" || current_user.role == "teacher"
+  = button_to "Go to Home", admin_quizzes_path, method: :get, class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"
+- else
+  = button_to "Go to Home", quizzes_path, method: :get, class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"

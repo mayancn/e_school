@@ -1,0 +1,25 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h1.h1.mb-0.text-gray-800 Report
+.card.shadow.mb-4
+  .card-header.py-2
+
+  .card-body
+    .table-responsive
+      %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+        %thead
+          %tr
+            %th Date submited
+            %th User name
+            %th Total
+            -# %th Grade
+          %tbody
+          - @quiz.results.each do |r|
+            %tr
+              %td= r.created_at
+              %td= r.user.name
+              %td= r.total
+              -# %td= r.percentage>40 ? "Pass" : "Fail"
+
+%a.d-none.d-sm-inline-block.btn.btn-lg.btn-primary.shadow-sm{:href => "#{admin_quizzes_path}"}
+  Back

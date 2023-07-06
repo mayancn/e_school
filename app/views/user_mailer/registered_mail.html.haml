@@ -1,0 +1,22 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h1.h1.mb-0.text-gray-800 Welcome to Swalekhan Test
+/ DataTales Example
+.card.shadow.mb-4
+  .card-header.py-2
+    .d-sm-flex.align-items-center.justify-content-between
+      %h6.m-0.font-weight-bold.text-primary
+  .card-body
+    Dear #{@user.name},
+    %br
+    #{@org_user.name} wishes to register their organization
+    %br
+    #{@org_user.organization.name}
+    %br
+    on Swalekhan test portal. Kindly click below link to approve or disapprove.
+    %br
+    = link_to "Users", @users_url
+    %br
+    Warm Regards,
+    %br
+    Team Swalekhan Test

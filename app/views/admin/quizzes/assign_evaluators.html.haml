@@ -1,0 +1,11 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h3.h3.mb-0.text-gray-800 Assign Evaluators
+.card-body
+  = simple_form_for [:admin, @quiz] do |f|
+    .inputs
+      = f.collection_check_boxes :evaluator_ids, @a_evaluators, :first, :last, include_blank: false
+    .actions.py-3
+      = f.submit "Save", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"
+
+

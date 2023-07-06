@@ -1,0 +1,12 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h3.h3.mb-0.text-gray-800 Organization approval for #{@user.organization.name}
+/ DataTales Example
+= simple_form_for @user, url: toggle_status_path do |f|
+  .form-inputs
+    = f.input :approved, as: :radio_buttons, collection: [['true','Approve'],['false','Disapprove']], label_method: :second, value_method: :first, required: true
+    = f.input :approver_comment
+  .form-actions
+    = f.submit "Submit"
+= link_to "Back", users_path
+

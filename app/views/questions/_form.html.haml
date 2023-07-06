@@ -1,0 +1,28 @@
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h2.h3.mb-0.text-gray-800
+    Questions
+%ul
+  - if @questions != nil
+    - @questions.each do |q|
+      %li
+        = link_to q.q_number, question_path(q), remote: true
+
+%h3#squestion.m-3 Start
+= "#{question.q_number}. #{question.question.html_safe}"
+= simple_form_for @solve_q, remote: true do |f|
+  = f.input :question_id, as: :hidden, input_html: {value: @question.id.to_s}
+  = f.input :quiz_id, as: :hidden, input_html: {value: @question.quiz.id.to_s}
+  = f.input :user_id, as: :hidden, input_html: {value: current_user.id.to_s}
+  - if @question.options.count>1
+    = "Options- "
+    = f.input :option_id, collection: Option.where(question_id: @question.id), as: :radio_buttons, label_method: :option_text, value_method: :id, label: false, input_html: { style: "display : block"}
+  - else
+    = f.input :user_answer, as: :text, label: false, placeholder: "Answer", input_html: {class: "form-control form-control-sm my-3 mx-2", size: 100, label: "Answer"}
+  - if @question.q_number == @question.quiz.questions.count
+    = f.submit "Submit quiz", class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+  - if @question.q_number < @question.quiz.questions.count
+    = f.submit "Save and Next", class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+- if @question.q_number > 1
+  = button_to "Previous Question", previous_question_path, method: :get, remote: true, params: {quiz_id: @question.quiz.id, question_id: @question.id}, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm my-3"
+- if @question.q_number != @question.quiz.questions.count
+  = button_to "Submit Quiz", results_path(@result, {result: {quiz_id: @quiz.id, user_id: current_user.id, status: "Submited"}}), method: :post, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm my-3"

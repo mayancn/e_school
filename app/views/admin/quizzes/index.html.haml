@@ -1,0 +1,58 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h1.h1.mb-0.text-gray-800 Dashboard
+
+  %a.d-none.d-sm-inline-block.btn.btn-md.btn-primary.shadow-sm{:href => "#{new_admin_quiz_path}"}
+    %i.fa.fa-pencil-square-o.fa-sm
+    Create Quiz
+/ DataTales Example
+.card.shadow.mb-4
+  .card-header.py-2
+    .d-sm-flex.align-items-center.justify-content-between
+      %h6.m-0.font-weight-bold.text-primary
+  - if @quizzes.count > 0
+    .card-body
+      .table-responsive
+        %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+          %thead
+            %tr
+              %th Name
+              %th Status
+              %th Quick Links
+              %th More 
+
+          %tbody
+          - @quizzes.each do |q|
+            %tr
+              %td
+                = link_to "#{q.title}", quiz_path(q)
+              %td 
+                =q.status
+              %td
+                %a.d-none.d-sm-inline-block.btn.btn-sm.btn-primary.shadow-sm{href: "/admin/analyze/#{q.id}"}
+                  %i.fa.fa-bar-chart.fa-sm{"aria-hidden" => "true"}
+                  Analyze
+                %a.d-none.d-sm-inline-block.btn.btn-sm.btn-primary.shadow-sm{:href => "#{admin_evaluate_quiz_path(q.id)}"}
+                  %i.fa.fa-pencil.fa-sm
+                  Evaluate
+                %a.d-none.d-sm-inline-block.btn.btn-sm.btn-primary.shadow-sm{:href => "#{admin_publish_quiz_path(q)}"}
+                  %i.fa.fa-upload.fa-sm
+                  Publish quiz
+
+              %td
+                .nav-item.dropdown.no-arrow
+                  %a#optDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                    %span.mr-2.d-none.d-lg-inline.text-gray-600.small
+                      %i.fa.fa-bars.fa-lg
+                  .dropdown-menu.dropdown-menu-right.shadow.animated--grow-in{"aria-labelledby" => "optDropdown"}
+                    %a.dropdown-item{:href => "#{admin_quiz_path(q)}"}
+                      Show
+                    %a.dropdown-item{:href => "#{edit_admin_quiz_path(q)}"}
+                      Edit
+                    %a.dropdown-item{:href => "#{admin_assign_evaluators_path(q.id)}"}
+                      Assign evaluators
+                    .dropdown-divider
+                    =link_to 'Delete', admin_quiz_path(q), method: :delete, data: {confirm: 'Are you sure?'}, class: "dropdown-item"
+  - else
+    %p No quizzes to display
+

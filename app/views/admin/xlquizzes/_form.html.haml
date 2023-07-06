@@ -1,0 +1,6 @@
+= simple_form_for [:admin, @xlquiz] do |f|
+  .form-inputs
+    = f.input :user_id, as: :hidden, input_html: {value: current_user.id.to_s}
+    = f.input :book, required: true, label: false, placeholder: "Choose file", class: "form-control form-control-sm my-3"
+  .form-actions.py-2
+    = f.submit "Upload", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm my-3"  

@@ -1,0 +1,35 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h1.h1.mb-0.text-gray-800 Groups
+  %a.d-none.d-sm-inline-block.btn.btn-md.btn-primary.shadow-sm{:href => "#{new_admin_group_path}"}
+    %i.fa.fa-plus.fa-sm
+    Create new Group
+.card.shadow.mb-4
+  .card-header.py-2
+  .card-body
+    - if @groups.count > 0
+      .table-responsive
+        %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+          %thead
+            %tr
+              %th Group name
+              %th Group type
+              %th Options
+            %tbody
+            - @groups.each do |g|
+              %tr
+                %td= g.group_name
+                %td= g.group_type
+                %td
+                  %i.fa.fa-pencil.fa-sm
+                  = link_to "Edit", edit_admin_group_path(g) 
+                  &nbsp | &nbsp
+                  = link_to "Add users to group", admin_addusers_path(g.id)
+                  &nbsp | &nbsp
+                  %i.fa.fa-trash.fa-sm
+                  = link_to "Delete", admin_group_path(g), method: :delete, data: {confirm: 'Are you sure?'}
+    - else
+      %p No groups to display
+
+%a.d-none.d-sm-inline-block.btn.btn-lg.btn-primary.shadow-sm{:href => "#{admin_quizzes_path}"}
+  Back

@@ -1,0 +1,64 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h3.h3.mb-0.text-gray-800 
+    = @quiz.title
+  %a.d-none.d-md-inline-block.btn.btn-md.btn-primary.shadow-sm{:href => "#{quiz_path(@quiz)}"}
+    %i.fa.fa-pencil-square-o.fa-sm
+    Preview
+.card.shadow.mb-4  
+  -#
+    .card-body
+      %a.d-none.d-sm-inline-block.btn.btn-sm.btn-primary.shadow-sm{:href => "#"}
+        %i.fa.fa-download.fa-sm.text-white-50
+        Add Item
+      -# = link_to "Add Question", new_admin_quiz_question_path(@quiz)
+  .card-body
+    - if @quiz.questions.count > 0
+      %ul.nav.nav-tabs
+        .table-responsive
+          %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+            %thead
+              %tr
+                %th #
+                %th Question
+                %th Options
+            %tbody
+            - @quiz.questions.each do |qu|
+              %tr
+                %td
+                  = "#{qu.q_number}".html_safe
+                %td 
+                  = "#{qu.question}".html_safe
+                %td 
+                  = link_to 'Show', admin_question_path(qu)
+                  &nbsp | &nbsp
+                  = link_to 'Edit', edit_admin_question_path(qu)
+                  &nbsp | &nbsp
+                  = link_to 'Delete', admin_question_path(qu), method: :delete, data: {confirm: 'Are you sure?'}                 
+    - else
+      %p No questions to display
+      -# %li.tab-pane.fade{href: "#"}
+      -#   %span.glyphicon.glyphicon-plus
+    %a.d-none.d-sm-inline-block.btn.btn-sm.btn-primary{:href => "#{new_admin_quiz_question_path(@quiz)}"}
+      %i.fa.fa-plus.fa-sm.text-white-50
+      Add Question
+
+%a.d-none.d-md-inline-block.btn.btn-md.btn-primary.shadow-sm{:href => "#{admin_quizzes_path}"}
+  Back
+  -# = link_to "All quizzes", admin_quizzes_path
+
+-# %h5
+  -#   %strong
+  -#   = @quiz.title
+
+  -# = link_to "Add Question", new_admin_quiz_question_path(@quiz)
+
+  -# - @quiz.questions.each do |qu|
+  -#   %p
+  -#     = "#{qu.q_number}.#{qu.question}".html_safe
+  -#   %p
+  -#     = link_to 'Show', admin_question_path(qu)
+  -#     = link_to 'Edit', edit_admin_question_path(qu)
+  -#     = link_to 'Delete', admin_question_path(qu), method: :delete, data: {confirm: 'Are you sure?'}
+
+  -# = link_to "All quizzes", admin_quizzes_path

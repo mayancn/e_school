@@ -1,0 +1,28 @@
+/ Outer Row
+.row.justify-content-center
+  .col-xl-10.col-lg-12.col-md-9
+    .card.o-hidden.border-0.shadow-lg.my-5
+      .card-body.p-0
+        / Nested Row within Card Body
+        .row
+          .col-lg-6.d-none.d-lg-block.bg-login-image
+          .col-lg-6
+            .p-5
+              .text-center
+                %h3.h3.text-gray-900.mb-4 Login
+                = resource.errors.inspect
+                = simple_form_for(resource, as: resource_name, html: {class:"user"}, url: session_path(resource_name)) do |f|
+                  .form-inputs
+                    .form-group
+                      = f.text_field :login, required: false, autofocus: true, label: false, placeholder: "Enter Username or Email Address...", class: "form-control form-control-user form-control-range", input_html: { autocomplete: "email" }
+                    .form-group
+                      = f.input_field :password, required: false, label: false, placeholder: "Password", class: "form-control form-control-user form-control-range", input_html: { autocomplete: "current-password" }
+                    .form-group
+                      .custom-control.custom-checkbox.small.float-left.py-3.ml-2
+                        = f.input_field :remember_me, as: :boolean, boolean_style: :inline, class: "custom-control-input", type: "checkbox", id: "customCheck"
+                        = f.label "remember Me", class: "custom-control-label", for: "customCheck"
+                    .form-actions
+                      = f.button :submit, "Log in", class: "btn btn-primary btn-user btn-block"
+              %hr/
+              .text-center
+                = render "devise/shared/links"

@@ -1,0 +1,21 @@
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h1.h1.mb-0.text-gray-800
+    Quizzes
+.card-body
+  - if @quizzes.count > 0
+    .table-responsive
+      %table#dataTable.table.table-bordered{:cellspacing => "0", :width => "100%"}
+        %tr
+          %th Quiz
+          %th Status
+          %th Solved On
+        - @quizzes.each do |q|
+          - if q.status == "Open"
+            %tr
+              %td= link_to q.title, quiz_path(q)
+              %td #{Quiz.solve_quiz(current_user, q.id) ? 'Submited' : 'Pending'}
+              %td
+          -else
+          %td= q.title
+  - else
+    %p No quizzes to display

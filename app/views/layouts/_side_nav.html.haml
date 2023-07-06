@@ -1,0 +1,87 @@
+/ Sidebar
+%ul#accordionSidebar.navbar-nav.bg-gradient-primary.sidebar.sidebar-dark.accordion
+  - if current_user!=true_user 
+    You 
+    = true_user.name
+    are signed in as
+    - if current_user.email!=nil
+      = current_user.email
+    -else
+      = current_user.username
+    = link_to "Back to super admin", stop_impersonating_users_path, method: :post
+  / Sidebar - Brand
+  - if current_user.role=="superadmin"
+    %a.sidebar-brand.d-flex.align-items-center.justify-content-center.my-3{:href => "#{users_path}"}
+      = image_tag "logo.png"
+    %li.nav-item
+      %a.nav-link.collapsed{"aria-controls" => "collapseUser", "aria-expanded" => "false", "data-target" => "#collapseUser", "data-toggle" => "collapse", :href => "#"}
+        %i.fa.fa-fw.fa-user
+        %span Users and Groups
+        -# %i.fa.fa-sm.fa-user
+      #collapseUser.collapse{"aria-labelledby" => "headingTwo", "data-parent" => "#accordionSidebar"}
+        .bg-white.py-2.collapse-inner.rounded
+          -# %h6.collapse-header Custom Components:
+          %a.collapse-item{:href => "#{new_user_invitation_path}"} Invite User
+          %a.collapse-item{:href => "#{users_path}"} All Users
+  - elsif current_user.role == "admin" || current_user.role == "teacher"
+    %a.sidebar-brand.d-flex.align-items-center.justify-content-center.my-3{:href => "#{admin_quizzes_path}"}
+      = image_tag "logo.png"
+    / Divider
+    %hr.sidebar-divider.my-0/
+    / Nav Item - Dashboard
+    %li.nav-item.active
+      %a.nav-link{:href => "#{admin_quizzes_path}"}
+        %i.fa.fa-fw.fa-tachometer
+        %span Dashboard
+    / Divider
+    %hr.sidebar-divider/
+    / Heading
+    -# .sidebar-heading
+    -#   Important
+    / Nav Item - Users
+    %li.nav-item
+      %a.nav-link.collapsed{"aria-controls" => "collapseUser", "aria-expanded" => "false", "data-target" => "#collapseUser", "data-toggle" => "collapse", :href => "#"}
+        %i.fa.fa-fw.fa-user
+        %span Users and Groups
+        -# %i.fa.fa-sm.fa-user
+      #collapseUser.collapse{"aria-labelledby" => "headingTwo", "data-parent" => "#accordionSidebar"}
+        .bg-white.py-2.collapse-inner.rounded
+          -# %h6.collapse-header Custom Components:
+          %a.collapse-item{:href => "#{new_admin_xlquiz_path}"} Upload Users
+          %a.collapse-item{:href => "#{new_user_invitation_path}"} Invite User
+          %a.collapse-item{:href => "#{users_path}"} All Users
+          %a.collapse-item{:href => "#{new_admin_group_path}"} Create Group
+          %a.collapse-item{:href => "#{admin_groups_path}"} All Groups
+    / Nav Item - Quizzes
+    %li.nav-item
+      %a.nav-link.collapsed{"aria-controls" => "collapseQuiz", "aria-expanded" => "false", "data-target" => "#collapseQuiz", "data-toggle" => "collapse", :href => "#"}
+        %i.fa.fa-fw.fa-pencil-square-o
+        %span Quizzes
+      #collapseQuiz.collapse{"aria-labelledby" => "headingUtilities", "data-parent" => "#accordionSidebar"}
+        .bg-white.py-2.collapse-inner.rounded
+          %a.collapse-item{:href => "#{new_admin_quiz_path}"} Create Quiz
+          %a.collapse-item{:href => "#"} Create Folder
+          %a.collapse-item{:href => "#{admin_quizzes_path}"} All Quizzes
+    / Nav Item - Results
+    %li.nav-item
+      %a.nav-link.collapsed{"aria-controls" => "collapseResults", "aria-expanded" => "false", "data-target" => "#collapseResults", "data-toggle" => "collapse", :href => "#"}
+        %i.fa.fa-fw.fa-wrench
+        %span Results
+      #collapseResults.collapse{"aria-labelledby" => "headingUtilities", "data-parent" => "#accordionSidebar"}
+        .bg-white.py-2.collapse-inner.rounded
+          %a.collapse-item{:href => "#"} View Results
+    / Divider
+    %hr.sidebar-divider.d-none.d-md-block/
+    / Sidebar Toggler (Sidebar)
+    -# .text-center.d-none.d-md-inline
+    -#   %button#sidebarToggle.rounded-circle.border-0
+  - elsif current_user.role == "student"
+    %a.sidebar-brand.d-flex.align-items-center.justify-content-center.my-3{:href => "#{quizzes_path}"}
+      = image_tag "logo.png"
+
+  - else
+    "Something went wrong"
+/ End of Sidebar
+  
+
+  

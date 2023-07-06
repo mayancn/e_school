@@ -1,0 +1,15 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h3.h3.mb-0.text-gray-800
+    = t "devise.invitations.new.header"
+.card-body
+  = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f|
+    = f.error_notification
+    - resource.class.invite_key_fields.each do |field|
+      = f.input field, input_html: {class: "form-control form-control-sm"}
+    .form-inputs
+      = f.input :organization_id, as: :hidden, input_html: {value: "#{current_user.organization.id.to_s}", class: "form-control form-control-sm"}
+      = f.input :name, input_html: {class: "form-control form-control-sm"}
+      = f.input :role, collection: [["admin", "Admin"],["teacher", "Teacher"], ["student", "Student"]], label_method: :second, value_method: :first, label: "Select Role", prompt: "Select",  class: "custom-control-input", type: "checkbox", id: "customDropbox", input_html: {class: "form-control form-control-sm"}
+    .form-actions.py-3
+      = f.button :submit, t("devise.invitations.new.submit_button"), class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm px-3 my-3"

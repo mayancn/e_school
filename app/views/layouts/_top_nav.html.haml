@@ -1,0 +1,73 @@
+/ Topbar
+%nav.navbar.navbar-expand.navbar-light.bg-white.topbar.static-top.shadow
+  / Sidebar Toggle (Topbar)
+  %button#sidebarToggleTop.btn.btn-link.d-md-none.rounded-circle.mr-3
+    %i.fa.fa-bars
+  / Topbar Search
+  %form.d-none.d-sm-inline-block.form-inline.mr-auto.ml-md-3.my-2.my-md-0.mw-100.navbar-search
+    .input-group
+      %input.form-control.bg-light.border-0.small{"aria-describedby" => "basic-addon2", "aria-label" => "Search", :placeholder => "Search for...", :type => "text"}/
+      .input-group-append
+        %button.btn.btn-primary{:type => "button", :alt => "search"}
+          %i.fa.fa-search.fa-sm
+  / Topbar Navbar
+  %ul.navbar-nav.ml-auto
+    / Nav Item - Search Dropdown (Visible Only XS)
+    %li.nav-item.dropdown.no-arrow.d-sm-none
+      %a#searchDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+        %i.fa.fa-search.fa-fw
+      /Dropdown - Messages Rajendra Sai
+      / %input.form-control.bg-light.border-0.small{"aria-describedby" => "basic-addon2", "aria-label" => "Search", :placeholder => "Search for...", :type => "text"}/
+      /   .input-group-append
+      /     %button.btn.btn-primary{:type => "button"}
+      /       %i.fa.fa-search.fa-sm
+    / Nav Item - Alerts
+    %li.nav-item.dropdown.no-arrow.mx-1
+      -# %a#alertsDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+      -#   %i.fa.fa-bell.fa-fw
+      -#   / Counter - Alerts
+      -#   %span.badge.badge-danger.badge-counter 3+
+      -# / Dropdown - Alerts
+      .dropdown-list.dropdown-menu.dropdown-menu-right.shadow.animated--grow-in{"aria-labelledby" => "alertsDropdown"}
+        %h6.dropdown-header
+          Notification Center
+        %a.dropdown-item.d-flex.align-items-center{:href => "#"}
+          .mr-3
+            .icon-circle.bg-primary
+              %i.fa.fa-file-alt.text-white
+          %div
+            .small.text-gray-500 December 1, 2019
+            %span.font-weight-bold A new monthly report is ready to download!
+        %a.dropdown-item.d-flex.align-items-center{:href => "#"}
+          .mr-3
+            .icon-circle.bg-success
+              %i.fa.fa-donate.text-white
+          %div
+            .small.text-gray-500 November 23, 2019
+            User group created
+        %a.dropdown-item.d-flex.align-items-center{:href => "#"}
+          .mr-3
+            .icon-circle.bg-warning
+              %i.fa.fa-exclamation-triangle.text-white
+          %div
+            .small.text-gray-500 November 15, 2019
+            Added new quiz
+        %a.dropdown-item.text-center.small.text-gray-500{:href => "#"} Show All Alerts
+    .topbar-divider.d-none.d-sm-block
+    
+    / Nav Item - User Information
+    %li.nav-item.dropdown.no-arrow
+      %a#userDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+        %span.mr-2.d-none.d-lg-inline.text-gray-600.small
+          = "Hi #{current_user.name}".html_safe
+        ///%img.img-profile.rounded-circle{:src => "#"}
+      / Dropdown - User Information
+      .dropdown-menu.dropdown-menu-right.shadow.animated--grow-in{"aria-labelledby" => "userDropdown"}
+        %a.dropdown-item{:href => "#{edit_user_registration_path}"}
+          Profile
+        %a.dropdown-item{:href => "#"}
+          Settings
+        .dropdown-divider
+        = link_to 'Logout', destroy_user_session_path, method: :delete, class: "dropdown-item" 
+/ End of Topbar
+  

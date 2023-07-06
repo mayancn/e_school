@@ -1,0 +1,28 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h3.h3.mb-0.text-gray-800 Edit #{resource_name.to_s.humanize}
+
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  = f.error_notification
+
+  .form-inputs.text-center
+    = f.input_field :name, required: true, autofocus: true, class: "form-control form-control-user form-control-range my-3"
+    = f.input_field :name, required: false, class: "form-control form-control-user form-control-range my-3"
+    - if current_user.username.nil? && current_user.role == "Student"
+      = f.text_field :username, hint: "Warning: You can only set this once. Once Set cannot be changed!", placeholder: "Username", class: "form-control form-control-user form-control-range my-3"
+      = f.input :email, required: true, class: "form-control form-control-user form-control-range my-3"
+    - elsif current_user.username.present?
+      = f.text_field :username, readonly: true, hint: "You cannot change your Username", placeholder: "Username", class: "form-control form-control-user form-control-range my-3"
+      = f.input :email, required: true, class: "form-control form-control-user form-control-range my-3"
+    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+      %p
+        Currently waiting confirmation for: #{resource.unconfirmed_email}
+    = f.input :password, hint: "leave it blank if you don't want to change it", required: false, input_html: { autocomplete: "new-password" }, class: "form-control form-control-user form-control-range my-3"
+    = f.input :password_confirmation, required: false, input_html: { autocomplete: "new-password" }, class: "form-control form-control-user form-control-range my-3"
+    = f.input :current_password, hint: "we need your current password to confirm your changes", required: true, input_html: { autocomplete: "current-password" }, class: "form-control form-control-user form-control-range my-3"
+  .form-actions
+    = f.button :submit, "Update", class: "d-none d-sm-inline-block btn btn-lg btn-primary shadow-sm my-3"
+%h Cancel my account
+%p
+  Unhappy? #{link_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure? WARNING: All your Quiz and Personal data will be deleted and no longer available." }, method: :delete}
+= link_to "Back", :back, class: "d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm my-3"

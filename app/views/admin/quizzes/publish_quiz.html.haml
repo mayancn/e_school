@@ -1,0 +1,9 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h3.h3.mb-0.text-gray-800 Publish quiz
+.card-body
+  = simple_form_for @quiz, url: admin_publish_quiz_path do |f|
+    .form-inputs
+      = f.input :status, collection: QUIZ_STATUS, input_html: {class: "form-control-sm ml-4" }
+    .form-actions.py-3
+      = f.submit "Publish quiz", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"

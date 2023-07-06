@@ -1,0 +1,38 @@
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h1.h3.mb-0.text-gray-800
+    Question Show
+
+%p
+  %strong Q.No.:
+  = @question.q_number
+%p
+  %strong Question:
+  = @question.question.html_safe
+%p
+  - if @question.question_type == 'Text' || @question.question_type == 'Match'
+    %strong Answer:
+    = @question.answer
+  - if @question.question_type == 'Multiple Choice'
+    - i = 0
+    - @question.options.each do |o|
+      - i += 1
+      %strong
+        = "#{i}) "
+      = o.option_text.html_safe
+      %br
+%p
+  %strong Answer:
+  - if @question.question_type == 'Multiple Choice'
+    - i = 0
+    - @question.options.each do |o|
+      - i += 1
+      - if o.is_correct == true
+        %strong
+          = "#{i}) "
+        = o.option_text.html_safe
+        %br
+%p
+  %strong Marks:
+  = @question.marks.to_i
+
+= link_to 'Back', admin_quiz_path(@question.quiz_id)

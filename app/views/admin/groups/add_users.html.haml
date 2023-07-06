@@ -1,0 +1,11 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h3.h3.mb-0.text-gray-800 Add users to group #{@group.group_name.titleize}
+.card-body
+  = simple_form_for [:admin, @group] do |g|
+    .inputs
+      = g.collection_check_boxes :user_ids, @a_users, :first, :last, include_blank: false
+    .actions.py-3
+      = g.submit "Save", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"
+  = link_to "Cancel", admin_groups_path
+

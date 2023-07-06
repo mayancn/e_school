@@ -1,0 +1,20 @@
+/ Outer Row
+- if user_signed_in?
+  .d-sm-flex.align-items-center.justify-content-between.mb-4
+    %h1.h1.mb-0.text-gray-800 Welcome to Eschool Web App
+    %a.d-none.d-sm-inline-block.btn.btn-lg.btn-primary.shadow-sm{:href => "#{admin_quizzes_path}"}
+      %i.fa.fa-tachometer.fa-sm
+      Dashboard
+- else
+  .row.justify-content-center
+    .col-xl-10.col-lg-12.col-md-9
+      .card.o-hidden.border-0.shadow-lg.my-5
+        .card-body.p-0
+          / Nested Row within Card Body
+          .p-5.text-center
+            %h1.h1.mb-0.text-gray-800 Welcome to Eschool Web App
+            %p.mb-4 You need to Login or sign up before you can continue
+            %i.fa.fa-download.fa-sm.text-white-50
+              = button_to "Login", new_user_session_path, class: "d-none d-sm-inline-block btn btn-lg btn-primary shadow-sm px-2 m-2"
+              = button_to "Sign Up", new_user_registration_path, method: :get, class: "d-none d-sm-inline-block btn btn-lg btn-primary shadow-sm px-2 m-2"
+

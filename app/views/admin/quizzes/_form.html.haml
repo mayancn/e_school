@@ -1,0 +1,12 @@
+=simple_form_for [:admin, @quiz] do |q|
+  .form-inputs
+    = q.input :group_ids, collection: current_user.organization.groups, label_method: :group_name, value_method: :id, label: "Select group", input_html: {multiple: true}
+    = q.input :user_id, as: :hidden, input_html: {value: current_user.id.to_s}
+    = q.input :organization_id, as: :hidden, input_html: {value: current_user.organization_id.to_s}
+    = q.input :title, required: true, autofocus: true, label: false, placeholder: "Quiz name", class: "form-control form-control-sm"
+    =#    = q.input :is_publish, as: :boolean, label: "Publish Now", checked_value:true, unchecked_value:false
+
+  .form-actions.my-3
+    = q.submit "Submit", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"  
+= button_to "Back", admin_quizzes_path, method: :get, class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm"
+    

@@ -1,0 +1,26 @@
+/= @question.inspect
+- if !@question.nil?
+  .d-sm-flex.align-items-center.justify-content-between.mb-4
+    %h3.h3.mb-0.text-gray-800
+      Evaluate question
+  ="#{@question.q_number.to_s}. #{@question.question}".html_safe
+  %br
+  = "Answer- #{@solved.user_answer}"
+  %br
+  = simple_form_for @solved, url: evaluate_question_path do |f|
+    .inputs.my-3.mr-3
+      = f.input :question_id, as: :hidden, input_html: {value: @solved.question.id.to_s}
+      = f.input :evaluator_id, as: :hidden, input_html: {value: current_user.id.to_s}
+      = f.input :ev_marks, label: "Marks", required: true, autofocus: true, class: "form-control form-control-sm"
+      = f.input :remark, label: "Remarks", class: "form-control form-control-sm"
+    .actions
+      - if @question.q_number < @question.quiz.questions.count
+        = f.submit "Save and next", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm my-3"
+      - if @question.q_number == @question.quiz.questions.count
+        = f.submit "Save", class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm my-3"
+  - if @question.q_number > 1
+    = button_to "Previous question", evaluate_question_path(@solved.user_id, @solved.quiz.id), params: {question_id: @question.id, commit: "Previous question"}, method: :get, class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm my-3"
+- else
+  %h1 Thank you
+  %p Your evaluation is successfully recorded. Please click on update button to update result.
+  = button_to "Update", result_path(@result), params: {result: {id: @result.id}}, method: :patch, class: "d-none d-sm-inline-block btn btn-md btn-primary shadow-sm my-3"

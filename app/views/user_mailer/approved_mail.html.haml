@@ -1,0 +1,18 @@
+/ Page Heading
+.d-sm-flex.align-items-center.justify-content-between.mb-4
+  %h1.h1.mb-0.text-gray-800 Welcome to Swalekhan Test
+/ DataTales Example
+.card.shadow.mb-4
+  .card-header.py-2
+    .d-sm-flex.align-items-center.justify-content-between
+      %h6.m-0.font-weight-bold.text-primary
+  .card-body
+    Dear #{@user.name},
+    %br
+    Your organization #{@user.organization.name} has been approved by Swalekhan test team.
+    %br
+    Kindly login through login page.
+    %br
+    Warm Regards,
+    %br
+    Team Swalekhan
